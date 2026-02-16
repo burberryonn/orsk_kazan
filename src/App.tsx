@@ -12,6 +12,9 @@ import {
   Menu,
   X,
 } from "lucide-react";
+import toyotaAlphardImage from "./img/Toyota_Alphard.jpg";
+import volkswagenCaravelleImage from "./img/Volkswagen_Caravelle.jpg";
+import toyotaHiaceImage from "./img/Toyota Hiace.jpg";
 
 export default function App() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -92,7 +95,8 @@ export default function App() {
 
   const fleet = [
     {
-      name: "Mercedes-Benz Sprinter",
+      name: "Toyota Alphard",
+      image: toyotaAlphardImage,
       type: "Микроавтобус",
       seats: "18-20 мест",
       comfort: "Премиум",
@@ -104,7 +108,8 @@ export default function App() {
       ],
     },
     {
-      name: "Ford Transit",
+      name: "Volkswagen Caravelle",
+      image: volkswagenCaravelleImage,
       type: "Микроавтобус",
       seats: "16-18 мест",
       comfort: "Комфорт",
@@ -117,6 +122,7 @@ export default function App() {
     },
     {
       name: "Toyota Hiace",
+      image: toyotaHiaceImage,
       type: "Минивэн",
       seats: "10-12 мест",
       comfort: "Бизнес",
@@ -820,11 +826,10 @@ export default function App() {
           position: relative;
           overflow: hidden;
         }
-        
-        .fleet-image::before {
-          content: '🚐';
-          font-size: 80px;
-          opacity: 0.5;
+        .fleet-image-element {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
         }
         
         .fleet-content {
@@ -1556,7 +1561,14 @@ export default function App() {
           <div className="fleet-grid">
             {fleet.map((vehicle, index) => (
               <div key={index} className="fleet-card">
-                <div className="fleet-image"></div>
+                <div className="fleet-image">
+                  <img
+                    src={vehicle.image}
+                    alt={vehicle.name}
+                    className="fleet-image-element"
+                    loading="lazy"
+                  />
+                </div>
                 <div className="fleet-content">
                   <div className="fleet-header">
                     <div className="fleet-type">
@@ -1960,3 +1972,4 @@ export default function App() {
     </div>
   );
 }
+

@@ -29,7 +29,7 @@ export default function App() {
   const routes = [
     {
       from: "Орск",
-      to: "Казань",
+      to: "Оренбург - Казань",
       time: "22:00",
       duration: "12 часов",
       price: "3500",
@@ -37,27 +37,11 @@ export default function App() {
     },
     {
       from: "Казань",
-      to: "Орск",
+      to: "Оренбург - Орск",
       time: "22:00",
       duration: "12 часов",
       price: "3500",
       priceOld: "4000",
-    },
-    {
-      from: "Оренбург",
-      to: "Казань",
-      time: "21:00",
-      duration: "14 часов",
-      price: "3800",
-      priceOld: "4200",
-    },
-    {
-      from: "Казань",
-      to: "Оренбург",
-      time: "21:00",
-      duration: "14 часов",
-      price: "3800",
-      priceOld: "4200",
     },
     {
       from: "Орск",
@@ -75,22 +59,56 @@ export default function App() {
       price: "3200",
       priceOld: "3600",
     },
+  ];
+
+  const services = [
     {
-      from: "Оренбург",
-      to: "Набережные Челны",
-      time: "22:30",
-      duration: "12 часов",
-      price: "3400",
-      priceOld: "3800",
+      title: "Заказ трансфера",
+      description:
+        "Индивидуальные и групповые поездки по вашему запросу.",
     },
     {
-      from: "Набережные Челны",
-      to: "Оренбург",
-      time: "22:30",
-      duration: "12 часов",
-      price: "3400",
-      priceOld: "3800",
+      title: "Наличный и безналичный расчёт",
+      description:
+        "Можно оплатить наличными, переводом или по карте.",
     },
+    {
+      title: "Грузы, посылки, документы",
+      description:
+        "Берём к отправке вместе с рейсом по согласованию.",
+    },
+  ];
+
+  const pickupRegions = [
+    {
+      region: "Оренбургская область",
+      cities: [
+        "Новотроицк",
+        "Медногорск",
+        "Кувандык",
+        "Оренбург",
+        "Шарлык",
+        "Абдулино",
+      ],
+    },
+    {
+      region: "Республика Татарстан",
+      cities: [
+        "Бавлы",
+        "Бугульма",
+        "Альметьевск",
+        "Нижнекамск (по договорённости)",
+        "Набережные Челны",
+        "Елабуга",
+      ],
+    },
+  ];
+
+  const transferCities = [
+    "Чебоксары",
+    "Киров",
+    "Йошкар-Ола",
+    "Ижевск",
   ];
 
   const fleet = [
@@ -160,17 +178,18 @@ export default function App() {
     {
       question: "Как забронировать место?",
       answer:
-        "Позвоните по телефону +7 (999) 123-45-67, напишите в WhatsApp или Telegram, либо заполните форму на сайте. Мы подтвердим бронирование в течение 15 минут.",
+        "Позвоните по телефону +7 (905) 845-07-61, напишите в WhatsApp или Telegram, либо заполните форму на сайте. Мы подтвердим бронирование в течение 15 минут.",
     },
     {
       question: "Нужна ли предоплата?",
       answer:
-        "Предоплата не требуется. Оплата производится водителю при посадке наличными или по карте.",
+        "Предоплата не требуется. Доступен наличный и безналичный расчёт при посадке.",
     },
     {
-      question: "Можно ли взять с собой багаж?",
+      question:
+        "Можно отправить груз, посылку или документы?",
       answer:
-        "Да, багаж включён в стоимость билета. Каждому пассажиру доступно место в багажном отсеке. Крупногабаритный груз обсуждается отдельно.",
+        "Да, принимаем к отправке грузы, посылки и документы. Условия и стоимость уточняются заранее при бронировании.",
     },
     {
       question: "Что делать, если я опаздываю?",
@@ -225,7 +244,7 @@ export default function App() {
     },
     {
       number: "02",
-      title: "Забронируйте место",
+      title: "Забронируйте место или трансфер",
       description:
         "Позвоните, напишите или заполните форму на сайте",
     },
@@ -1280,6 +1299,35 @@ export default function App() {
           border-radius: var(--radius-full);
           text-transform: uppercase;
         }
+
+        .services-pickup-block {
+          margin-top: var(--space-12);
+        }
+
+        .services-grid {
+          grid-template-columns: repeat(auto-fit, minmax(240px, 320px));
+          justify-content: center;
+        }
+
+        .services-grid .advantage-card {
+          width: 100%;
+          height: 100%;
+        }
+
+        .services-subtitle {
+          text-align: center;
+          margin-bottom: var(--space-6);
+        }
+
+        .services-connection {
+          margin-top: var(--space-10);
+          text-align: center;
+        }
+
+        .services-connection-text {
+          margin-top: var(--space-4);
+          margin-bottom: 0;
+        }
         
         /* UTILITIES */
         .text-center {
@@ -1301,6 +1349,7 @@ export default function App() {
 
           <nav className="header-nav">
             <a href="#routes">Маршруты</a>
+            <a href="#services">Услуги</a>
             <a href="#fleet">Автопарк</a>
             <a href="#booking">Бронирование</a>
             <a href="#faq">Вопросы</a>
@@ -1308,12 +1357,12 @@ export default function App() {
           </nav>
 
           <div className="header-actions">
-            <a href="tel:+79991234567" className="phone-link">
+            <a href="tel:+79058450761" className="phone-link">
               <Phone className="phone-icon" />
-              <span>+7 (999) 123-45-67</span>
+              <span>+7 (905) 845-07-61</span>
             </a>
             <a
-              href="https://wa.me/79991234567"
+              href="https://wa.me/79058450761"
               className="btn btn-primary btn-sm"
               target="_blank"
               rel="noopener noreferrer"
@@ -1346,6 +1395,12 @@ export default function App() {
               Маршруты и цены
             </a>
             <a
+              href="#services"
+              onClick={() => setMobileMenuOpen(false)}
+            >
+              Услуги
+            </a>
+            <a
               href="#fleet"
               onClick={() => setMobileMenuOpen(false)}
             >
@@ -1376,7 +1431,7 @@ export default function App() {
               Контакты
             </a>
             <a
-              href="tel:+79991234567"
+              href="tel:+79058450761"
               className="btn btn-primary"
             >
               <Phone size={20} />
@@ -1391,13 +1446,13 @@ export default function App() {
         <div className="container hero-container">
           <div className="hero-content">
             <h1 className="hero-title">
-              Междугороднее такси между Орском, Оренбургом,
-              Казанью и Набережными Челнами
+              Пассажирские перевозки: Орск - Оренбург - Казань,
+              Казань - Оренбург - Орск, Набережные Челны
             </h1>
             <p className="hero-description">
-              Комфортные поездки на современных микроавтобусах.
-              Ежедневные рейсы, фиксированные цены, опытные
-              водители.
+              Ежедневные рейсы и заказ трансфера. Перевозим
+              пассажиров, грузы, посылки и документы.
+              Наличный и безналичный расчёт.
             </p>
             <div className="hero-cta">
               <a
@@ -1407,7 +1462,7 @@ export default function App() {
                 Забронировать место
               </a>
               <a
-                href="tel:+79991234567"
+                href="tel:+79058450761"
                 className="btn btn-secondary btn-lg"
               >
                 <Phone size={20} />
@@ -1419,60 +1474,31 @@ export default function App() {
               <div className="hero-feature">
                 <CheckCircle className="hero-feature-icon" />
                 <div className="hero-feature-title">
-                  Ежедневные рейсы
+                  Заказ трансфера
                 </div>
                 <div className="hero-feature-text">
-                  Удобное расписание
+                  Индивидуально и для групп
                 </div>
               </div>
               <div className="hero-feature">
                 <CheckCircle className="hero-feature-icon" />
                 <div className="hero-feature-title">
-                  Фиксированная цена
+                  Наличный и безналичный расчёт
                 </div>
                 <div className="hero-feature-text">
-                  Без доплат в пути
+                  Выбирайте удобный формат оплаты
                 </div>
               </div>
               <div className="hero-feature">
                 <CheckCircle className="hero-feature-icon" />
                 <div className="hero-feature-title">
-                  Собственный парк
+                  Грузы и документы
                 </div>
                 <div className="hero-feature-text">
-                  Комфортный транспорт
+                  Отправка в попутном рейсе
                 </div>
               </div>
             </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ADVANTAGES */}
-      <section className="section section-white">
-        <div className="container">
-          <div className="section-header">
-            <h2 className="section-title">
-              Почему выбирают нас
-            </h2>
-            <p className="section-subtitle">
-              Мы обеспечиваем безопасные и комфортные поездки
-              для тысяч пассажиров
-            </p>
-          </div>
-
-          <div className="advantages-grid">
-            {advantages.map((advantage, index) => (
-              <div key={index} className="advantage-card">
-                {advantage.icon}
-                <h3 className="advantage-title">
-                  {advantage.title}
-                </h3>
-                <p className="advantage-description mb-0">
-                  {advantage.description}
-                </p>
-              </div>
-            ))}
           </div>
         </div>
       </section>
@@ -1482,11 +1508,11 @@ export default function App() {
         <div className="container">
           <div className="section-header">
             <h2 className="section-title">
-              Маршруты и расписание
+              Пассажирские перевозки
             </h2>
             <p className="section-subtitle">
-              Выберите удобное направление. Отправление каждый
-              день по расписанию
+              Орск - Оренбург - Казань, Казань - Оренбург - Орск
+              и рейсы в Набережные Челны
             </p>
           </div>
 
@@ -1543,6 +1569,66 @@ export default function App() {
                 </div>
               </div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* SERVICES */}
+      <section id="services" className="section section-green">
+        <div className="container">
+          <div className="section-header">
+            <h2 className="section-title">
+              Услуги, посадка и пересадки
+            </h2>
+            <p className="section-subtitle">
+              Работаем по основным маршрутам и в попутных
+              направлениях
+            </p>
+          </div>
+
+          <div className="advantages-grid services-grid">
+            {services.map((service, index) => (
+              <div key={index} className="advantage-card">
+                <CheckCircle className="advantage-icon" />
+                <h3 className="advantage-title">
+                  {service.title}
+                </h3>
+                <p className="advantage-description mb-0">
+                  {service.description}
+                </p>
+              </div>
+            ))}
+          </div>
+
+          <div className="services-pickup-block">
+            <h3 className="services-subtitle">
+              Забираем пассажиров
+            </h3>
+            <div className="advantages-grid services-grid">
+              {pickupRegions.map((region, index) => (
+                <div
+                  key={index}
+                  className="advantage-card"
+                >
+                  <h4 className="advantage-title">
+                    {region.region}
+                  </h4>
+                  <p className="advantage-description mb-0">
+                    {region.cities.join(", ")}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className="services-connection">
+            <span className="badge">
+              Пересадка в попутном направлении
+            </span>
+            <p className="section-subtitle services-connection-text">
+              С нами можно добраться с пересадкой:{" "}
+              {transferCities.join(", ")}.
+            </p>
           </div>
         </div>
       </section>
@@ -1636,11 +1722,11 @@ export default function App() {
         <div className="container">
           <div className="section-header">
             <h2 className="section-title">
-              Забронировать место
+              Забронировать место или заказать трансфер
             </h2>
             <p className="section-subtitle">
-              Оставьте заявку, и мы свяжемся с вами для
-              подтверждения
+              Оставьте заявку на поездку, трансфер или отправку
+              документов и груза
             </p>
           </div>
 
@@ -1674,7 +1760,7 @@ export default function App() {
                   type="tel"
                   id="phone"
                   className="form-input"
-                  placeholder="+7 (999) 123-45-67"
+                  placeholder="+7 (905) 845-07-61"
                   value={formData.phone}
                   onChange={(e) =>
                     setFormData({
@@ -1703,17 +1789,11 @@ export default function App() {
                   required
                 >
                   <option value="">Выберите маршрут</option>
-                  <option value="orsk-kazan">
-                    Орск → Казань
+                  <option value="orsk-orenburg-kazan">
+                    Орск → Оренбург → Казань
                   </option>
-                  <option value="kazan-orsk">
-                    Казань → Орск
-                  </option>
-                  <option value="orenburg-kazan">
-                    Оренбург → Казань
-                  </option>
-                  <option value="kazan-orenburg">
-                    Казань → Оренбург
+                  <option value="kazan-orenburg-orsk">
+                    Казань → Оренбург → Орск
                   </option>
                   <option value="orsk-chelny">
                     Орск → Набережные Челны
@@ -1721,11 +1801,8 @@ export default function App() {
                   <option value="chelny-orsk">
                     Набережные Челны → Орск
                   </option>
-                  <option value="orenburg-chelny">
-                    Оренбург → Набережные Челны
-                  </option>
-                  <option value="chelny-orenburg">
-                    Набережные Челны → Оренбург
+                  <option value="transfer-order">
+                    Заказ трансфера (по договорённости)
                   </option>
                 </select>
               </div>
@@ -1777,7 +1854,7 @@ export default function App() {
                 style={{ justifyContent: "center" }}
               >
                 <a
-                  href="https://wa.me/79991234567"
+                  href="https://wa.me/79058450761"
                   className="social-btn social-btn-whatsapp"
                   target="_blank"
                   rel="noopener noreferrer"
@@ -1888,6 +1965,35 @@ export default function App() {
         </div>
       </section>
 
+      {/* ADVANTAGES */}
+      <section className="section section-gray">
+        <div className="container">
+          <div className="section-header">
+            <h2 className="section-title">
+              Почему выбирают нас
+            </h2>
+            <p className="section-subtitle">
+              Надёжные поездки, прозрачные условия и внимание к
+              каждому заказу
+            </p>
+          </div>
+
+          <div className="advantages-grid">
+            {advantages.map((advantage, index) => (
+              <div key={index} className="advantage-card">
+                {advantage.icon}
+                <h3 className="advantage-title">
+                  {advantage.title}
+                </h3>
+                <p className="advantage-description mb-0">
+                  {advantage.description}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* CONTACTS / FOOTER */}
       <footer id="contacts" className="footer">
         <div className="container">
@@ -1895,13 +2001,14 @@ export default function App() {
             <div className="footer-section">
               <h4>Орск-Казань</h4>
               <p className="footer-description">
-                Междугородний трансфер между городами Орск,
-                Оренбург, Казань и Набережные Челны. Комфортно,
-                безопасно, надёжно с 2015 года.
+                Пассажирские перевозки по направлениям Орск -
+                Оренбург - Казань, Казань - Оренбург - Орск и
+                Набережные Челны. Также доступны трансфер, грузы,
+                посылки и документы.
               </p>
               <div className="social-buttons">
                 <a
-                  href="https://wa.me/79991234567"
+                  href="https://wa.me/79058450761"
                   className="social-btn social-btn-whatsapp"
                   target="_blank"
                   rel="noopener noreferrer"
@@ -1924,8 +2031,8 @@ export default function App() {
             <div className="footer-section">
               <h4>Контакты</h4>
               <div className="footer-contact">
-                <a href="tel:+79991234567">
-                  +7 (999) 123-45-67
+                <a href="tel:+79058450761">
+                  +7 (905) 845-07-61
                 </a>
                 <a href="mailto:info@orsk-kazan.ru">
                   info@orsk-kazan.ru
@@ -1944,16 +2051,19 @@ export default function App() {
             <div className="footer-section">
               <h4>Маршруты</h4>
               <div className="footer-links">
-                <a href="#routes">Орск — Казань</a>
-                <a href="#routes">Оренбург — Казань</a>
-                <a href="#routes">Орск — Наб. Челны</a>
-                <a href="#routes">Оренбург — Наб. Челны</a>
+                <a href="#routes">Орск — Оренбург — Казань</a>
+                <a href="#routes">Казань — Оренбург — Орск</a>
+                <a href="#routes">Орск — Набережные Челны</a>
+                <a href="#services">
+                  Чебоксары, Киров, Йошкар-Ола, Ижевск
+                </a>
               </div>
             </div>
 
             <div className="footer-section">
               <h4>Информация</h4>
               <div className="footer-links">
+                <a href="#services">Услуги и посадка</a>
                 <a href="#fleet">Автопарк</a>
                 <a href="#booking">Бронирование</a>
                 <a href="#testimonials">Отзывы</a>
@@ -1972,4 +2082,5 @@ export default function App() {
     </div>
   );
 }
+
 
